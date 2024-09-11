@@ -6,18 +6,42 @@ export default {
   },
   data() {
     return {
-      theData: {}
+      theData: {},
+      tempData: {},
+      resultSet: [],
+      tempResultSet: [],
+      currentPage: 1,
+      total: 0,
+      imgURL: 'https://media.nfsacollection.net/',
+      query: 'https://api.collection.nfsa.gov.au/search?limit=25&query=',
+      searchString: 'lobby'
     }
   },
+
   methods: {
     fetchData() {
-      // use a piece of dynamic data to modify the API call
-      let query = 'https://api.collection.nfsa.gov.au/search?query=dog'
-      console.log(query)
-      fetch(query)
+      let queryString = this.query + this.searchString + '&page=' + this.currentPage
+      fetch(queryString)
         .then((response) => {
-          // response.json().then(res => console.log(res));
-          response.json().then((res) => (this.$data.theData = res))
+          response.json().then((res) => {
+            this.$data.tempData = { ...this.$data.tempData, ...res }
+            this.$data.tempResultSet = this.$data.tempResultSet.concat(res.results)
+            this.$data.total = res.meta.count.total
+            if (this.$data.total > 0) {
+              if (this.currentPage * 25 < 500 && this.currentPage * 25 < this.$data.total) {
+                this.currentPage++
+                this.fetchData()
+              } else {
+                this.$data.theData = this.$data.tempData
+                this.$data.tempData = {}
+                this.$data.resultSet = this.$data.tempResultSet
+                this.$data.tempResultSet = []
+                this.currentPage = 1
+              }
+            } else {
+              console.log('no results')
+            }
+          })
         })
         .catch((err) => {
           console.error(err)
@@ -28,20 +52,27 @@ export default {
 </script>
 
 <template>
-  <div class="greetings">
+  <div class="search">
     <h1 class="green">{{ msg }}</h1>
-    <button @click="fetchData">Click Me!</button>
-  </div>
 
-  <ul class="list-v">
-    <!-- create a variable called result, 
-      loop through the API results and add a <li> for each result.
-      Use the result variable to access properties like 'title' and 'name' -->
-    <li v-for="result in theData.results" :key="result.title">
-      {{ result.title }}
-      {{ result.name }}
-    </li>
-  </ul>
+    <input v-model="searchString" placeholder="query" />
+    <button @click="fetchData">fetch data</button>
+
+    <p>Total: {{ total }}</p>
+
+    <ul role="list" class="list-v">
+      <li v-for="(result, index) in resultSet" :key="result[index]">
+        <p>{{ result['title'] }}</p>
+        <p>{{ result['name'] }}</p>
+        <img
+          v-if="result['preview'] && result['preview'][0]"
+          v-bind:src="imgURL + result['preview'][0]['filePath']"
+          v-bind:alt="result['name']"
+          v-bind:title="result['name']"
+        />
+      </li>
+    </ul>
+  </div>
 </template>
 
 <style scoped>

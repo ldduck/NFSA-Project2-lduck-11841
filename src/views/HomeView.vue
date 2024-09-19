@@ -2,6 +2,7 @@
 
 <template>
   <main>
-    <TheWelcome />
+    <TheFetch />
+    <TestingView />
   </main>
 </template>

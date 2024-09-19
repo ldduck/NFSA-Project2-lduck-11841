@@ -5,7 +5,9 @@ import TheFetch from './components/TheFetch.vue'
 
 <template>
   <TheFetch />
+  <RouterView />
 
+  <TestingPage />
   <RouterView />
 </template>
 

@@ -3,6 +3,5 @@
 <template>
   <main>
     <TheFetch />
-    <TestingView />
   </main>
 </template>

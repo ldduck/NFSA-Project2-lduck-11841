@@ -1,14 +1,25 @@
 <script setup lang="ts">
 import { RouterLink, RouterView } from 'vue-router'
-import TestComponent from './components/TestComponent.vue'
 import TheFetch from './components/TheFetch.vue'
 </script>
 
 <template>
   <div id="app">
-    <TestComponent />
+    <nav>
+      <RouterLink to="/">Home</RouterLink> |
+      <RouterLink to="/alternate">Alternate</RouterLink>
+    </nav>
+    <RouterView />
     <TheFetch />
   </div>
 </template>
 
-<style scoped></style>
+<style scoped>
+nav {
+  display: flex;
+  gap: 10px;
+  background-color: #333;
+  padding: 20px;
+  border-radius: 5px;
+}
+</style>

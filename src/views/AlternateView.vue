@@ -1,11 +1,11 @@
 <script>
 export default {
-  name: 'HomeView'
+  name: 'AlternateView'
 }
 </script>
 
 <template>
   <main>
-    <h1>Home View</h1>
+    <h1>Alternate View</h1>
   </main>
 </template>

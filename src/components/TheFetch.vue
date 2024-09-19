@@ -14,7 +14,7 @@ export default {
       total: 0,
       imgURL: 'https://media.nfsacollection.net/',
       query: 'https://api.collection.nfsa.gov.au/search?limit=25&query=',
-      searchString: 'lobby'
+      searchString: 'war'
     }
   },
 

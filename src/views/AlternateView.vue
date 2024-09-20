@@ -1,11 +1,11 @@
-<script>
-export default {
-  name: 'AlternateView'
-}
+<script setup lang="ts">
+import AlternateComponent from '../components/AlternateComponent.vue'
 </script>
 
 <template>
-  <main>
-    <h1>Alternate View</h1>
-  </main>
+  <div class="alternate">
+    <AlternateComponent />
+  </div>
 </template>
+
+<style></style>

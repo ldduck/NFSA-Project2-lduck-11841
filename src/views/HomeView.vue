@@ -1,11 +1,11 @@
-<script>
-export default {
-  name: 'HomeView'
-}
+<script setup lang="ts">
+import TheFetch from '../components/TheFetch.vue'
 </script>
 
 <template>
   <main>
-    <h1>Home View</h1>
+    <TheFetch />
   </main>
 </template>
+
+<style></style>

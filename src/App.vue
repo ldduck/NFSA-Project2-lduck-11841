@@ -9,8 +9,8 @@ import TheFetch from './components/TheFetch.vue'
       <RouterLink to="/">Home</RouterLink> |
       <RouterLink to="/alternate">Alternate</RouterLink>
     </nav>
+    <TheFetch msg="Fetch some data" />
     <RouterView />
-    <TheFetch />
   </div>
 </template>
 

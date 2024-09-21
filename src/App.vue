@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { RouterLink, RouterView } from 'vue-router'
-import TheFetch from './components/TheFetch.vue'
 </script>
 
 <template>
@@ -9,7 +8,7 @@ import TheFetch from './components/TheFetch.vue'
       <RouterLink to="/">Home</RouterLink> |
       <RouterLink to="/alternate">Alternate</RouterLink>
     </nav>
-    <TheFetch msg="Fetch some data" />
+
     <RouterView />
   </div>
 </template>

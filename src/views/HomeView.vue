@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import TheFetch from '../components/TheFetch.vue'
+import TagCloud from '@/components/TagCloud.vue'
 </script>
 
 <template>
   <main>
-    <TheFetch />
+    <TagCloud />
   </main>
 </template>
 

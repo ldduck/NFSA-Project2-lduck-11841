@@ -2,7 +2,7 @@
 
 <template>
   <div class="alternateIntro">
-    <h1>This is an alternate component</h1>
+    <h1>This will become a tag cloud</h1>
     <p>If you can see this text then the component is working correctly.</p>
   </div>
 </template>

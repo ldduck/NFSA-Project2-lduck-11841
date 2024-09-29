@@ -1,11 +1,21 @@
 <script lang="ts">
 import * as d3 from 'd3'
 
+interface Data {
+  place: string
+  population: number
+}
+
 export default {
   name: 'TagCloud',
-  data() {
-    return {
-      data: [
+
+  mounted() {
+    this.createCircles()
+  },
+
+  methods: {
+    createCircles() {
+      const data = [
         { place: 'Australia', population: 10 },
         { place: 'USA', population: 10 },
         { place: 'China', population: 10 },
@@ -21,28 +31,29 @@ export default {
         { place: 'Thailand', population: 130 },
         { place: 'Hong Kong', population: 190 },
         { place: 'Macau', population: 500 }
-      ]
+      ] as DataNode[]
+
+      const colorScale = d3
+        .scaleOrdinal<string>()
+        .domain(data.map((d) => d.place))
+        .range(d3.schemeCategory10)
+
+      const svg = d3
+        .select(this.$refs.circleContainer as HTMLElement)
+        .append('svg')
+        .attr('width', 600)
+        .attr('height', 600)
+
+      svg
+        .selectAll('circle')
+        .data(data)
+        .enter()
+        .append('circle')
+        .attr('cx', (d, i) => i * 100 + 30)
+        .attr('cy', 60)
+        .attr('r', (d) => d.population)
+        .attr('fill', (d) => colorScale(d.place))
     }
-  },
-
-  mounted() {
-    const width = 800
-    const height = width
-    const padding = 25
-
-    const colorScale = d3
-      .scaleOrdinal()
-      .domain(this.data.map((d) => d.place))
-      .range(d3.schemeCategory10)
-
-    const pack = d3
-      .pack()
-      .size([width - padding, height - padding])
-      .padding(2.5)
-
-    const hierarchy = d3.hierarchy({ children: this.data }).sum((d) => d.population)
-
-    const root = pack(hierarchy)
   }
 }
 
@@ -108,6 +119,6 @@ export default {
 <template>
   <div>
     <h1>TAG CLOUD</h1>
-    <svg></svg>
+    <div ref="circleContainer"></div>
   </div>
 </template>

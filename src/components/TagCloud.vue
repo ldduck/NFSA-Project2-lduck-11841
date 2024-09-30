@@ -1,11 +1,6 @@
 <script lang="ts">
 import * as d3 from 'd3'
 
-interface Data {
-  place: string
-  population: number
-}
-
 export default {
   name: 'TagCloud',
 
@@ -31,89 +26,50 @@ export default {
         { place: 'Thailand', population: 130 },
         { place: 'Hong Kong', population: 190 },
         { place: 'Macau', population: 500 }
-      ] as DataNode[]
+      ]
 
+      // creates a colour scale using the D3 schemes to colour the circles
       const colorScale = d3
         .scaleOrdinal<string>()
         .domain(data.map((d) => d.place))
         .range(d3.schemeCategory10)
 
-      const svg = d3
-        .select(this.$refs.circleContainer as HTMLElement)
-        .append('svg')
-        .attr('width', 600)
-        .attr('height', 600)
+      const width = 600
+      const height = width
 
+      // creates the svg element to display the circles
+      const svg = d3
+        .select(this.$refs.circleContainer)
+        .append('svg')
+        .attr('width', width)
+        .attr('height', height)
+
+      // creates and colours the circles
       svg
         .selectAll('circle')
         .data(data)
         .enter()
         .append('circle')
-        .attr('cx', (d, i) => i * 100 + 30)
+        .attr('cx', (d, i) => (i + 1) * 100)
         .attr('cy', 60)
         .attr('r', (d) => d.population)
         .attr('fill', (d) => colorScale(d.place))
+
+      // creates the text labels for the circles
+      svg
+        .selectAll('text')
+        .data(data)
+        .enter()
+        .append('text')
+        .attr('x', (d, i) => (i + 1) * 100)
+        .attr('y', 60)
+        .attr('text-anchor', 'middle')
+        .attr('alignment-baseline', 'middle')
+        .attr('fill', 'white')
+        .text((d) => d.place)
     }
   }
 }
-
-// const width = 800
-// const height = width
-// const svg = d3.select('svg').attr('width', width).attr('height', height)
-// const g = svg.append('g')
-
-// const parseTime = d3.timeParse('%Y-%m-%d')
-
-// const x = d3
-//   .scaleTime()
-//   .domain(
-//     d3.extent(this.data, function (d) {
-//       return parseTime(d.date)
-//     })
-//   )
-//   .rangeRound([0, width])
-
-// const y = d3
-//   .scaleLinear()
-//   .domain(
-//     d3.extent(this.data, function (d) {
-//       return d.value
-//     })
-//   )
-//   .rangeRound([height, 0])
-
-// const line = d3
-//   .line<{ date: string; value: number }>()
-//   .x(function (d) {
-//     const parsedDate = parseTime(d.date)
-//     return x(parsedDate ? parsedDate : new Date())
-//   })
-//   .y(function (d) {
-//     return y(d.value)
-//   })
-
-// g.append('g')
-//   .attr('transform', 'translate(0,' + height + ')')
-//   .call(d3.axisBottom(x))
-
-// g.append('g')
-//   .call(d3.axisLeft(y))
-//   .append('text')
-//   .attr('fill', '#000')
-//   .attr('transform', 'rotate(-90)')
-//   .attr('y', 6)
-//   .attr('dy', '0.71em')
-//   .attr('text-anchor', 'end')
-//   .text('value')
-
-// g.append('path')
-//   .datum(this.data)
-//   .attr('fill', 'none')
-//   .attr('stroke', 'steelblue')
-//   .attr('stroke-linejoin', 'round')
-//   .attr('stroke-linecap', 'round')
-//   .attr('stroke-width', 1.5)
-//   .attr('d', line)
 </script>
 
 <template>
@@ -122,3 +78,5 @@ export default {
     <div ref="circleContainer"></div>
   </div>
 </template>
+
+<style scoped></style>

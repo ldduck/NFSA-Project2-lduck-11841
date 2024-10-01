@@ -25,7 +25,9 @@ export default {
         { text: 'Ember', weight: 50 },
         { text: 'More', weight: 40 },
         { text: 'Heretic', weight: 38 },
-        { text: 'Gregg', weight: 33 }
+        { text: 'Gregg', weight: 33 },
+        { text: 'Sanity', weight: 15 },
+        { text: 'Tu Shan', weight: 4 }
       ]"
       :color="
         (word) => {

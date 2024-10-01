@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import TagCloud from '@/components/TagCloud.vue'
+import WordCloud from '@/components/WordCloud.vue'
 </script>
 
 <template>
   <main>
-    <TagCloud />
+    <WordCloud />
   </main>
 </template>
 

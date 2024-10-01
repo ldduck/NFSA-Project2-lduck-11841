@@ -14,7 +14,9 @@ export default {
     <h1>Word Cloud Moment</h1>
     <h3>If you can see this. I'm connected right!</h3>
     <vue3-word-cloud
-      class="titles"
+      id="titles"
+      class="words"
+      style="width: 600px; height: 600px; text-align: center"
       :words="[
         { text: 'Vue', weight: 200 },
         { text: 'React', weight: 110 },
@@ -25,11 +27,17 @@ export default {
         { text: 'Heretic', weight: 38 },
         { text: 'Gregg', weight: 33 }
       ]"
-      color="weight => weight > 85 ? 'red' : weight > 45 'orange' : 'green'"
-      :font-size="(weight: number) => weight * 0.5"
+      :color="
+        (word) => {
+          const weight = word.weight as number
+          return weight > 80 ? 'DeepPink' : weight > 45 ? 'RoyalBlue' : 'Indigo'
+        }
+      "
+      :font-size="(word) => (word.weight as number) * 0.5"
       :font-family="'serif'"
       :spacing="0.35"
-    />
+    >
+    </vue3-word-cloud>
   </div>
 </template>
 
@@ -38,6 +46,7 @@ export default {
   background-color: #333;
   padding: 20px;
   border-radius: 5px;
+  text-align: center;
 }
 h1 {
   color: #ffcc00;
@@ -48,10 +57,11 @@ h3 {
   font-size: 1.2rem;
 }
 
-.titles {
+#titles {
   width: 100%;
-  height: 500px;
+  height: 600px;
   background-color: #d7d7d7;
   padding: 20px;
+  border-radius: 5px;
 }
 </style>
